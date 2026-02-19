@@ -208,11 +208,10 @@ app.post('/api/admin/login', (req, res) => {
 
 app.post('/api/user/login', (req, res) => {
     const { cardKey } = req.body;
-    // 只要是 CARD- 开头的就算正确
     res.json({ success: cardKey && cardKey.startsWith('CARD-') });
 });
 
-// 启动服务器
+// 关键修复：监听 Railway 自动分配的端口
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`✅ 服务器启动成功，端口: ${PORT}`);
