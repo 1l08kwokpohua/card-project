@@ -213,7 +213,7 @@ app.post('/api/user/login', (req, res) => {
 });
 
 // 启动服务器
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`✅ 服务器启动成功，端口: ${PORT}`);
     console.log(`管理员登录: /admin-login.html`);
