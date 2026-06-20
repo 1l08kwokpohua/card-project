@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>保密通知 · Confidentiality Notice</title>
+    <style>
+        /* ===== 全局重置 & 字体 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f2f5;
+            font-family: "Segoe UI", "PingFang SC", Roboto, "Helvetica Neue", Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* ===== 主卡片 ===== */
+        .document {
+            max-width: 1100px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+            padding: 60px 70px;
+            transition: all 0.2s;
+        }
+
+        @media (max-width: 700px) {
+            .document {
+                padding: 30px 20px;
+            }
+        }
+
+        /* ===== 头部 ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 3px double #1a2a3a;
+            padding-bottom: 16px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0b1a2a;
+            letter-spacing: 1px;
+        }
+
+        .header h1 small {
+            font-size: 18px;
+            font-weight: 400;
+            color: #3a5a7a;
+            margin-left: 18px;
+            letter-spacing: 0.5px;
+        }
+
+        .header .doc-id {
+            font-size: 14px;
+            color: #4a5a6a;
+            background: #eef2f6;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* ===== 所有区块通用 ===== */
+        .section {
+            margin-bottom: 36px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0b1a2a;
+            border-left: 6px solid #b31b1b;
+            padding-left: 16px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .section-title .en {
+            font-weight: 400;
+            font-size: 16px;
+            color: #3a5a7a;
+        }
+
+        .bilingual-block {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 14px 20px;
+            background: #f8faff;
+            border-radius: 12px;
+            border-left: 4px solid #b31b1b;
+            margin-bottom: 14px;
+        }
+
+        .bilingual-block .zh {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #1a2a3a;
+        }
+
+        .bilingual-block .en {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #2a4a6a;
+            border-top: 1px dashed #d0dae8;
+            padding-top: 8px;
+            margin-top: 4px;
+        }
+
+        .bilingual-block .en i {
+            color: #4a6a8a;
+            font-style: italic;
+        }
+
+        /* ===== 特殊高亮框 ===== */
+        .warning-box {
+            background: #fff4f0;
+            border-left: 6px solid #c0392b;
+            padding: 22px 28px;
+            border-radius: 14px;
+            margin: 28px 0 18px 0;
+        }
+
+        .warning-box .zh {
+            font-weight: 600;
+            font-size: 17px;
+            color: #7a1a1a;
+        }
+
+        .warning-box .en {
+            font-weight: 500;
+            font-size: 16px;
+            color: #8a2a2a;
+            margin-top: 6px;
+        }
+
+        /* ===== 签名区 ===== */
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px 50px;
+            background: #f6f9fc;
+            border-radius: 16px;
+            padding: 26px 32px;
+            margin-top: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .signature-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+        }
+
+        .signature-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .signature-item .label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #4a5a6a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .signature-item .value {
+            font-size: 16px;
+            color: #0b1a2a;
+            border-bottom: 1px solid #c0c8d4;
+            padding-bottom: 6px;
+        }
+
+        .signature-item .value-en {
+            font-size: 15px;
+            color: #2a4a6a;
+            border-bottom: 1px solid #c0c8d4;
+            padding-bottom: 6px;
+        }
+
+        /* ===== 页脚 ===== */
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e6ee;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
+            font-size: 14px;
+            color: #5a6a7a;
+        }
+
+        .footer .version {
+            background: #eaf0f6;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+
+        /* ===== 打印优化 ===== */
+        @media print {
+            body {
+                background: #fff;
+                padding: 0.3in;
+            }
+            .document {
+                box-shadow: none;
+                padding: 20px 30px;
+            }
+            .warning-box {
+                background: #f0ece8;
+            }
+            .bilingual-block {
+                background: #fafcfe;
+            }
+            .signature-grid {
+                background: #f4f6fa;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="document">
+
+    <!-- ============================================================ -->
+    <!-- 头部 -->
+    <!-- ============================================================ -->
+    <div class="header">
+        <h1>
+            🔒 保密通知
+            <small>Confidentiality Notice</small>
+        </h1>
+        <span class="doc-id">📄 文件编号: CNF-2026-006</span>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 第 1 条：总则 -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">
+            第一条 · 总则
+            <span class="en">Article 1 · General Principles</span>
+        </div>
+
+        <div class="bilingual-block">
+            <div class="zh">
+                本通知所涉及的全部信息均属机密资料，受相关法律法规及内部保密制度保护。
+                所有接收本通知的人员（以下简称“接收方”）须严格遵守本通知所列各项规定。
+            </div>
+            <div class="en">
+                All information covered by this notice constitutes confidential material and is protected
+                by applicable laws, regulations, and internal confidentiality policies.
+                Every recipient of this notice (hereinafter “Recipient”) shall strictly comply with
+                all provisions set forth herein.
+            </div>
+        </div>
+
+        <div class="bilingual-block">
+            <div class="zh">
+                本通知适用于任何以口头、书面、电子或其他形式披露的信息，无论其载体为何。
+            </div>
+            <div class="en">
+                This notice applies to any information disclosed orally, in writing, electronically,
+                or in any other form, regardless of the medium.
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 第 2 条：保密义务 -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">
+            第二条 · 保密义务
+            <span class="en">Article 2 · Confidentiality Obligations</span>
+        </div>
+
+        <div class="bilingual-block">
+            <div class="zh">
+                接收方同意并承诺：在任何情况下，未经授权不得以任何方式持有、复制、转发、
+                披露、传播或使用本通知所涉信息。
+            </div>
+            <div class="en">
+                The Recipient agrees and undertakes that, under no circumstances, without prior authorization,
+                they shall not possess, copy, forward, disclose, disseminate, or use the information
+                covered by this notice in any manner whatsoever.
+            </div>
+        </div>
+
+        <div class="bilingual-block">
+            <div class="zh">
+                接收方仅可在获得明确书面许可的前提下，在授权范围内处理相关信息，
+                且处理完毕后应立即归还或销毁所有相关资料（包括电子副本）。
+            </div>
+            <div class="en">
+                The Recipient may only handle the relevant information within the authorized scope
+                upon obtaining explicit written permission. Upon completion, all related materials
+                (including electronic copies) shall be immediately returned or destroyed.
+            </div>
+        </div>
+
+        <div class="bilingual-block">
+            <div class="zh">
+                接收方不得将本通知的存在或内容向任何第三方透露，除非法律法规另有强制性规定。
+            </div>
+            <div class="en">
+                The Recipient shall not disclose the existence or content of this notice to any third party,
+                unless otherwise mandatorily required by applicable laws or regulations.
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 第 3 条：禁止行为（重点） -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">
+            第三条 · 禁止行为
+            <span class="en">Article 3 · Prohibited Acts</span>
+        </div>
+
+        <!-- 高亮警告框 -->
+        <div class="warning-box">
+            <div class="zh">
+                ⚠ 未经授权，任何个人或实体均不得持有或转发本通知所涉信息。
+            </div>
+            <div class="en">
+                ⚠ Without prior authorization, no individual or entity may possess or forward
+                the information covered by this notice.
+            </div>
+        </div>
+
+        <div class="bilingual-block">
+            <div class="zh">
+                <strong>禁止行为包括但不限于：</strong><br />
+                （一）将信息存储于未经授权的设备或云端；<br />
+                （二）通过电子邮件、即时通讯、社交媒体或任何网络渠道转发信息；<br />
+                （三）在公开场合讨论、展示或泄露信息内容；<br />
+                （四）对信息进行翻译、改编、逆向工程或任何形式的二次处理。
+            </div>
+            <div class="en">
+                <strong>Prohibited acts include, but are not limited to:</strong><br />
+                (a) Storing the information on unauthorized devices or cloud services;<br />
+                (b) Forwarding the information via email, instant messaging, social media,
+                or any network channel;<br />
+                (c) Discussing, displaying, or disclosing the content of the information in public;<br />
+                (d) Translating, adapting, reverse-engineering, or otherwise reprocessing the information
+                in any form.
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 第 4 条：法律责任 -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">
+            第四条 · 法律责任
+            <span class="en">Article 4 · Legal Liability</span>
+        </div>
+
+        <div class="bilingual-block">
+            <div class="zh">
+                任何违反本通知规定的行为，均被视为严重违反保密制度。
+                违规者将承担相应的民事、行政及/或刑事责任，包括但不限于赔偿损失、
+                支付违约金、被追究商业秘密侵权或国家秘密泄露等法律责任。
+            </div>
+            <div class="en">
+                Any violation of the provisions of this notice shall be deemed a serious breach
+                of the confidentiality system. The violator shall bear corresponding civil,
+                administrative, and/or criminal liabilities, including but not limited to
+                compensation for damages, payment of liquidated damages, and legal liability
+                for trade secret infringement or state secret disclosure.
+            </div>
+        </div>
+
+        <div class="bilingual-block">
+            <div class="zh">
+                如因接收方违约导致信息泄露，接收方应承担由此产生的一切直接及间接损失，
+                并配合有关部门进行调查。
+            </div>
+            <div class="en">
+                If information is disclosed due to the Recipient’s breach, the Recipient shall bear
+                all direct and indirect losses arising therefrom and shall cooperate with the
+                competent authorities in any investigation.
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 第 5 条：非指定收件人处理 -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">
+            第五条 · 非指定收件人
+            <span class="en">Article 5 · Non-Intended Recipients</span>
+        </div>
+
+        <div class="bilingual-block">
+            <div class="zh">
+                如您并非本通知的指定收件人，您特此被通知：<br />
+                任何未经授权阅读、持有、复制或转发本通知内容的行为均属严格禁止。
+                请您立即删除所有相关记录（包括电子邮件、附件及任何副本），
+                并以书面或电子邮件方式通知发件人。
+            </div>
+            <div class="en">
+                If you are not the intended recipient of this notice, you are hereby notified that:<br />
+                Any unauthorized reading, possession, copying, or forwarding of the content of this notice
+                is strictly prohibited. Please immediately delete all related records (including emails,
+                attachments, and any copies) and notify the sender in writing or by email.
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 第 6 条：期限与终止 -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">
+            第六条 · 保密期限
+            <span class="en">Article 6 · Term of Confidentiality</span>
+        </div>
+
+        <div class="bilingual-block">
+            <div class="zh">
+                本通知所涉信息的保密义务自接收方首次接触该信息之日起生效，
+                并持续有效，直至该信息依法定程序被正式解密或公开，
+                或由信息权利方以书面形式明确解除保密义务为止。
+            </div>
+            <div class="en">
+                The confidentiality obligations regarding the information covered by this notice
+                shall take effect from the date on which the Recipient first accesses such information
+                and shall remain in full force and effect until the information is officially declassified
+                or made public in accordance with legal procedures, or until the information rights holder
+                explicitly releases the confidentiality obligations in writing.
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 第 7 条：管辖与解释 -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">
+            第七条 · 管辖与解释
+            <span class="en">Article 7 · Governing Law &amp; Interpretation</span>
+        </div>
+
+        <div class="bilingual-block">
+            <div class="zh">
+                本通知的解释、效力及执行均适用中华人民共和国法律。
+                因本通知引起的或与本通知有关的任何争议，应提交有管辖权的人民法院解决。
+            </div>
+            <div class="en">
+                The interpretation, validity, and enforcement of this notice shall be governed by
+                the laws of the People’s Republic of China. Any dispute arising from or in connection
+                with this notice shall be submitted to the competent People’s Court for resolution.
+            </div>
+        </div>
+
+        <div class="bilingual-block">
+            <div class="zh">
+                本通知以中英文两种语言书写。如中英文版本存在任何歧义或冲突，
+                以中文版本为准（除非另有书面约定）。
+            </div>
+            <div class="en">
+                This notice is written in both Chinese and English. In the event of any ambiguity
+                or conflict between the Chinese and English versions, the Chinese version shall prevail
+                (unless otherwise agreed in writing).
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 第 8 条：确认与接受 -->
+    <!-- ============================================================ -->
+    <div class="section">
+        <div class="section-title">
+            第八条 · 确认与接受
+            <span class="en">Article 8 · Acknowledgment &amp; Acceptance</span>
+        </div>
+
+        <div class="bilingual-block">
+            <div class="zh">
+                接收方一经接触本通知所涉信息，即视为已阅读、理解并同意接受
+                本通知全部条款的约束。如接收方不同意本通知任何条款，
+                应立即停止接触相关信息并通知发件方。
+            </div>
+            <div class="en">
+                By accessing the information covered by this notice, the Recipient shall be deemed
+                to have read, understood, and agreed to be bound by all terms of this notice.
+                If the Recipient does not agree to any term of this notice, they shall immediately
+                cease accessing the relevant information and notify the sender.
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 签名 / 签发信息 -->
+    <!-- ============================================================ -->
+    <div class="section" style="margin-top:20px;">
+        <div class="section-title">
+            签发信息
+            <span class="en">Issuance Information</span>
+        </div>
+
+        <div class="signature-grid">
+            <div class="signature-item">
+                <span class="label">签发机构 / Issuing Authority</span>
+                <span class="value">保密委员会 · 信息安全部</span>
+                <span class="value-en">Confidentiality Committee · Information Security Dept.</span>
+            </div>
+            <div class="signature-item">
+                <span class="label">签发人 / Issued By</span>
+                <span class="value">张 伟 (首席安全官)</span>
+                <span class="value-en">Wei Zhang (Chief Security Officer)</span>
+            </div>
+            <div class="signature-item">
+                <span class="label">签发日期 / Date of Issue</span>
+                <span class="value">2026 年 6 月 20 日</span>
+                <span class="value-en">June 20, 2026</span>
+            </div>
+            <div class="signature-item">
+                <span class="label">生效日期 / Effective Date</span>
+                <span class="value">2026 年 6 月 20 日</span>
+                <span class="value-en">June 20, 2026</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 页脚 -->
+    <!-- ============================================================ -->
+    <div class="footer">
+        <span>© 2026 Hubert · 版权所有</span>
+        <span class="version">版本 2.3 · 中英双语正式版</span>
+        <span style="font-size:13px; color:#7a8a9a;">
+            未经授权不得复制或转发 · Unauthorized copying or forwarding prohibited
+        </span>
+    </div>
+
+</div>
+
+</body>
+</html>
